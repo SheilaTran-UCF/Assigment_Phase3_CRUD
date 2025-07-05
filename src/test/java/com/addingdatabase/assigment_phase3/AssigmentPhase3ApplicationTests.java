@@ -1,10 +1,10 @@
-package com.addingdatabase.assigment_phase4;
+package com.addingdatabase.assigment_phase3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AssigmentPhase4ApplicationTests {
+class AssigmentPhase3ApplicationTests {
 
     @Test
     void contextLoads() {
