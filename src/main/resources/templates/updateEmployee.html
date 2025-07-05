@@ -1,10 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Declare this document as HTML5 -->
+
+<!--
+ *   Professor: Ashley Evans
+ *   Student name: Minh Ngoc Tran
+ *   Course: 202530-CEN-3024C-31774
+ *   Date : July 5th - 2025
+
+  Update Employee Form Page
+
+  This Thymeleaf template provides a user interface to update the details of an existing employee.
+  It includes a form pre-populated with the employee's current information such as name, position,
+  salary, hire date, department, and active status. The form submits changes via POST to the '/update' endpoint.
+  Additionally, the page features styling for a clean, user-friendly layout and a navigation link back to the employee list.
+-->
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Start of HTML document with Thymeleaf namespace for template processing -->
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Update Employee</title>
+    <!-- Page title shown in browser tab -->
+
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <!-- Link to external stylesheet resolved by Thymeleaf -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Link to Font Awesome CSS for icons -->
+
+    <style>
+        /* Internal CSS styling starts */
+
+        body {
+            font-family: Arial, sans-serif;
+            /* Set font for body text */
+
+            margin: 30px;
+            /* Outer margin around the page */
+
+            background-color: #f5f5f5;
+            /* Light gray background */
+        }
+
+        h2 {
+            color: #f19529;
+            /* Orange heading color */
+        }
+
+        form {
+            background: #fff;
+            /* White background for form */
+
+            padding: 20px;
+            /* Inner padding around form content */
+
+            border-radius: 12px;
+            /* Rounded corners */
+
+            max-width: 400px;
+            /* Max width for form */
+
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            /* Subtle shadow for elevation */
+        }
+
+        p {
+            margin-bottom: 15px;
+            /* Space below each paragraph */
+
+            font-size: 20px;
+            /* Larger text size */
+
+            color: #007bff;
+            /* Blue color for labels */
+        }
+
+        input[type="text"], input[type="number"], input[type="date"] {
+            width: 100%;
+            /* Inputs take full width of container */
+
+            padding: 8px;
+            /* Inner padding for inputs */
+
+            border: 1px solid #ccc;
+            /* Light border */
+
+            border-radius: 6px;
+            /* Rounded input corners */
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            /* Slightly enlarge checkbox */
+
+            margin-left: 5px;
+            /* Left margin for spacing */
+        }
+
+        button {
+            background-color: #4CAF50;
+            /* Green button background */
+
+            color: white;
+            /* White button text */
+
+            padding: 10px 18px;
+            /* Button padding */
+
+            border: none;
+            /* Remove default border */
+
+            border-radius: 6px;
+            /* Rounded corners */
+
+            cursor: pointer;
+            /* Pointer cursor on hover */
+        }
+
+        button:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+        }
+
+        a {
+            display: inline-block;
+            /* Inline block for spacing and layout */
+
+            margin-top: 20px;
+            /* Space above the link */
+
+            text-decoration: none;
+            /* Remove underline */
+
+            color: #e46826;
+            /* Orange link color */
+        }
+
+        a i {
+            margin-right: 5px;
+            /* Space to right of icon */
+        }
+    </style>
 </head>
+
 <body>
-$END$
+
+<h2>Update Employee</h2>
+<!-- Heading for the update form -->
+
+<form th:action="@{/update}" th:object="${employee}" method="post">
+    <!-- Form submission posts to /update, binds to 'employee' object -->
+
+    <input type="hidden" th:field="*{id}">
+    <!-- Hidden input to store employee ID for update -->
+
+    <p>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" placeholder="Enter full name" required>
+        <!-- Text input for employee name, required field -->
+    </p>
+
+    <p>
+        <label>Position:</label>
+        <input type="text" th:field="*{position}" placeholder="Job title" required>
+        <!-- Text input for position, required -->
+    </p>
+
+    <p>
+        <label>Salary:</label>
+        <input type="number" th:field="*{salary}" step="0.01" placeholder="Enter salary" required>
+        <!-- Number input for salary with 2 decimals, required -->
+    </p>
+
+    <p>
+        <label>Hire Date:</label>
+        <input type="date" th:field="*{hireDate}" required>
+        <!-- Date input for hire date, required -->
+    </p>
+
+    <p>
+        <label>Department:</label>
+        <input type="text" th:field="*{department}" placeholder="Department name" required>
+        <!-- Text input for department, required -->
+    </p>
+
+    <p>
+        <label>Active:</label>
+        <input type="checkbox" th:field="*{active}">
+        <!-- Checkbox for active status -->
+    </p>
+
+    <p>
+        <button type="submit">Update Employee</button>
+        <!-- Submit button to send form -->
+    </p>
+</form>
+
+<p>
+    <a th:href="@{/employees}"><i class="fas fa-arrow-left"></i> Back to List</a>
+    <!-- Link back to employee list with left arrow icon -->
+</p>
+
 </body>
 </html>

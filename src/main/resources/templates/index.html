@@ -1,10 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Declare this document as HTML5 -->
+
+<!--
+ *   Professor: Ashley Evans
+ *   Student name: Minh Ngoc Tran
+ *   Course: 202530-CEN-3024C-31774
+ *   Date : July 5th - 2025
+
+
+  Welcome Page for Employee Tracker App
+
+  This Thymeleaf template renders the welcome screen of the Employee Tracker application.
+  It features an animated sun and cloud graphic for visual appeal, a large welcoming heading,
+  and two prominent buttons that navigate users to the Employee List and Tenure Report pages.
+
+  The design uses responsive styling to ensure usability across device sizes,
+  and includes smooth hover effects on buttons for better interactivity.
+-->
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Start of HTML document with Thymeleaf namespace for template processing -->
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Welcome to Employee Tracker App</title>
+    <!-- Page title shown in browser tab -->
+
+    <style>
+        /* Internal CSS styling starts */
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Set body font stack */
+
+            background: linear-gradient(to top, #b3e5fc, #e1f5fe);
+            /* Gradient background from blue to lighter blue */
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* Center content vertically and horizontally using flexbox */
+
+            height: 100vh;
+            /* Full viewport height */
+
+            margin: 0;
+            /* Remove default margin */
+
+            overflow: hidden;
+            /* Prevent scrollbars */
+        }
+
+        h1 {
+            font-size: 3rem;
+            /* Large heading font size */
+
+            margin-bottom: 40px;
+            /* Space below heading */
+
+            font-weight: 800;
+            /* Extra bold text */
+
+            font-family: "American Typewriter";
+            /* Heading font family */
+
+            color: #efa24a;
+            /* Orange heading color */
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 30px;
+            /* Container for buttons with horizontal spacing */
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 18px 40px;
+            /* Padding inside buttons */
+
+            font-size: 1.45rem;
+            /* Button font size */
+
+            text-decoration: none;
+            /* Remove underline from links */
+
+            color: white;
+            /* Button text color */
+
+            background-color: #f19529;
+            /* Button background color */
+
+            border-radius: 8px;
+            /* Rounded corners */
+
+            box-shadow: 0 4px 10px rgba(228, 202, 60, 0.5);
+            /* Subtle shadow around buttons */
+
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            /* Smooth transition effects on hover */
+
+            font-weight: 600;
+            /* Semi-bold font */
+
+            text-align: center;
+            /* Center text inside button */
+
+            min-width: 180px;
+            /* Minimum button width */
+        }
+
+        a.button:hover {
+            background-color: #eaa24c;
+            /* Slightly lighter orange on hover */
+
+            box-shadow: 0 6px 15px rgba(228, 202, 60, 0.5);
+            /* Slightly bigger shadow on hover */
+        }
+
+        @media (max-width: 500px) {
+            /* Responsive styles for small screens */
+
+            .btn-container {
+                flex-direction: column;
+                /* Stack buttons vertically */
+
+                gap: 20px;
+                /* Smaller gap between buttons */
+            }
+
+            a.button {
+                width: 100%;
+                /* Make buttons full width */
+
+                min-width: unset;
+                /* Remove minimum width constraint */
+            }
+        }
+
+        /* Sun & Cloud Animation Styles */
+
+        .sky {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 150px;
+            height: 120px;
+            /* Container for sun and cloud positioned in top-left */
+        }
+
+        .sun {
+            width: 60px;
+            height: 60px;
+            background: #ffd93d;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #ffd93d, 0 0 40px #ffd93d;
+            /* Yellow sun circle with glow */
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* Position inside sky container */
+
+            animation: rotate 12s linear infinite, pulse 2s ease-in-out infinite alternate;
+            /* Continuous rotation and pulsing glow animations */
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            /* Full 360 degrees rotation animation */
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px #ffd93d, 0 0 40px #ffd93d; }
+            100% { box-shadow: 0 0 30px #ffd93d, 0 0 60px #ffd93d; }
+            /* Pulsing glow effect animation */
+        }
+
+        .cloud {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: cloudMove 30s linear infinite;
+            /* White cloud composed of multiple parts moving horizontally */
+        }
+
+        @keyframes cloudMove {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(200px); }
+            100% { transform: translateX(0); }
+            /* Cloud moves right 200px then back left continuously */
+        }
+
+        .cloud-part {
+            width: 35px;
+            height: 35px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin-right: -10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            /* Individual white circles that form the cloud shape */
+        }
+
+    </style>
 </head>
+
 <body>
-$END$
+
+<!-- Animated Sun & Cloud Container -->
+<div class="sky">
+    <div class="sun"></div>
+    <div class="cloud">
+        <div class="cloud-part"></div>
+        <div class="cloud-part"></div>
+        <div class="cloud-part"></div>
+    </div>
+</div>
+
+<!-- Main Heading -->
+<h1>Welcome to Employee Tracker</h1>
+
+<!-- Button Links Container -->
+<div class="btn-container">
+    <a th:href="@{/employees}" class="button">View Employee List</a>
+    <!-- Link button to employee list page -->
+
+    <a th:href="@{/tenure}" class="button">View Tenure Report</a>
+    <!-- Link button to tenure report page -->
+</div>
+
 </body>
 </html>

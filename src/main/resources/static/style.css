@@ -1,0 +1,37 @@
+
+/**
+ *   Professor: Ashley Evans
+ *   Student name: Minh Ngoc Tran
+ *   Course: 202530-CEN-3024C-31774
+ *   Date : July 5th - 2025
+ *
+ * style.css
+ *
+ * This stylesheet defines the basic styling for the Employee Tracker web application.
+ * It sets global font and layout properties, applies consistent table formatting,
+ * and customizes heading colors for a clean and readable user interface.
+ *
+ * Features:
+ * - Applies a sans-serif font and page margin.
+ * - Styles tables with borders, padding, and collapsed borders for neat appearance.
+ * - Defines consistent text color for h1 and h2 headings.
+ *
+ */
+
+/* Set default font and margin for the entire webpage */
+body {
+    font-family: Arial, sans-serif; /* Use Arial as primary font, fallback to sans-serif */
+    margin: 20px;                   /* Add 20 pixels of margin around the page content */
+}
+
+/* Style for table elements: table, table headers, and table cells */
+table, th, td {
+    border: 1px solid black;        /* Add a 1-pixel solid black border around tables, headers, and cells */
+    border-collapse: collapse;      /* Merge adjacent borders into a single border */
+    padding: 5px;                   /* Add 5 pixels of padding inside each table cell */
+}
+
+/* Style for headings h1 and h2 */
+h1, h2 {
+    color: #333366;                 /* Set text color to a dark blue shade for h1 and h2 headings */
+}

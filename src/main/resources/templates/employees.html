@@ -1,10 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Declare this document as HTML5 -->
+
+<!--
+ *   Professor: Ashley Evans
+ *   Student name: Minh Ngoc Tran
+ *   Course: 202530-CEN-3024C-31774
+ *   Date : July 5th - 2025
+
+  Employee List Page
+
+  This Thymeleaf template displays a styled table listing all employees with details
+  such as ID, name, position, salary, hire date, department, and active status.
+  Each row includes action links to edit or delete the respective employee.
+
+  The page includes a link to add a new employee and a navigation link back to the home page.
+  Styling is applied inline and via an external stylesheet, with icons provided by Font Awesome.
+-->
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Start of HTML document with Thymeleaf namespace for template engine -->
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Employee List</title>
+  <!-- Page title shown in browser tab -->
+
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <!-- Link to external stylesheet using Thymeleaf to resolve path -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Link to Font Awesome CSS for icon fonts -->
+
+  <style>
+    /* Internal CSS styling starts */
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    /* Page body styling: font, margin, light background, text color */
+
+    h2 {
+      color: #ec8c1d;
+      margin-bottom: 20px;
+      font-size: 35px;
+    }
+    /* Main heading styling: orange color, margin below, large font size */
+
+    a {
+      color: #e46826;
+      font-size: 30px;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    /* Anchor links styling: orange color, large font, no underline, horizontal margin */
+
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Hover effect for links: underline text */
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    /* Table styling: full width, collapsed borders, white background, subtle shadow */
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px 15px;
+      text-align: left;
+    }
+    /* Table header and cell styling: light border, padding, left aligned text */
+
+    th {
+      background-color: #007bff;
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    /* Table header styling: blue background, white bold uppercase text, letter spacing */
+
+    tr:nth-child(even) {
+      background-color: #f2f6fc;
+    }
+    /* Even table rows get a light blue background for striping */
+
+    tr:hover {
+      background-color: #d6e4ff;
+    }
+    /* Hover effect on table rows: highlight with pale blue background */
+
+    .actions a {
+      color: #28a745;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    /* Links inside actions column styled green, bold, large font */
+
+    .actions a.delete {
+      color: #dc3545;
+      font-size: 20px;
+    }
+    /* Delete links styled red and same font size */
+
+    p {
+      margin-top: 20px;
+    }
+    /* Paragraph spacing above */
+  </style>
 </head>
+
 <body>
-$END$
+<h2>Employee List</h2>
+<!-- Page heading -->
+
+<p><a th:href="@{/add}">&#x2795; Add New Employee</a></p>
+<!-- Link to add new employee page, shows plus icon -->
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Salary</th>
+    <th>Hire Date</th>
+    <th>Department</th>
+    <th>Active</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <!-- Table header row with column titles -->
+
+  <tbody>
+  <tr th:each="emp : ${employees}">
+    <!-- Loop through 'employees' list, one table row per employee -->
+
+    <td th:text="${emp.id}"></td>
+    <!-- Employee ID -->
+
+    <td th:text="${emp.name}"></td>
+    <!-- Employee name -->
+
+    <td th:text="${emp.position}"></td>
+    <!-- Employee position -->
+
+    <td th:text="${#numbers.formatDecimal(emp.salary, 1, 'COMMA', 2, 'POINT')}"></td>
+    <!-- Employee salary formatted with 2 decimals -->
+
+    <td th:text="${emp.hireDate}"></td>
+    <!-- Employee hire date -->
+
+    <td th:text="${emp.department}"></td>
+    <!-- Employee department -->
+
+    <td th:text="${emp.active ? 'Yes' : 'No'}"></td>
+    <!-- Display 'Yes' if active true, otherwise 'No' -->
+
+    <td class="actions">
+      <a th:href="@{/update/{id}(id=${emp.id})}">Edit</a> |
+      <!-- Link to edit employee by ID -->
+
+      <a th:href="@{/delete/{id}(id=${emp.id})}" class="delete"
+         onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
+      <!-- Link to delete employee by ID with confirmation popup -->
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<p><a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Home</a></p>
+<!-- Link back to home page with left arrow icon -->
+
 </body>
 </html>

@@ -1,10 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Declare this document as HTML5 -->
+
+<!--
+ *   Professor: Ashley Evans
+ *   Student name: Minh Ngoc Tran
+ *   Course: 202530-CEN-3024C-31774
+ *   Date : July 5th - 2025
+
+
+  Employee Tenure Report Page
+
+  This Thymeleaf template displays a report grouping employees by their tenure ranges.
+  For each tenure group, it shows the group name, the count of employees, and a table
+  listing details such as ID, name, position, salary, hire date, department, and active status.
+
+  The page includes styled tables for readability and a navigation link back to the home page.
+-->
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Start HTML with Thymeleaf namespace for template processing -->
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Employee Tenure Report</title>
+    <!-- Page title shown in browser tab -->
+
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <!-- Link to external stylesheet, resolved by Thymeleaf -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Link to Font Awesome for icons -->
+
+    <style>
+        /* Internal CSS styling for table, headings, links, and text */
+
+        table {
+            border-collapse: collapse;
+            /* Remove space between table borders */
+
+            width: 90%;
+            /* Table width relative to container */
+
+            margin-bottom: 40px;
+            /* Space below table */
+        }
+
+        th, td {
+            border: 1px solid #999;
+            /* Grey border for table cells */
+
+            padding: 8px 12px;
+            /* Cell padding */
+
+            text-align: left;
+            /* Left align text */
+        }
+
+        th {
+            background-color: #a3c0fd;
+            /* Light blue background for headers */
+
+            color: #0e52e1;
+            /* Darker blue text color */
+        }
+
+        h1 {
+            color: #ed8e1d;
+            /* Orange color for main heading */
+        }
+
+        h2 {
+            margin-top: 40px;
+            margin-bottom: 5px;
+            /* Spacing above and below subheadings */
+
+            color: rgb(228, 104, 38);
+            /* Bright orange for subheadings */
+        }
+
+        .count {
+            margin-bottom: 15px;
+            /* Space below count text */
+
+            font-weight: bold;
+            /* Bold text */
+
+            color: rgb(68, 119, 228);
+            /* Blue color for count */
+        }
+
+        a.back-link {
+            margin-top: 30px;
+            display: inline-block;
+            /* Link block with margin above */
+
+            font-weight: bold;
+            /* Bold text */
+
+            text-decoration: none;
+            /* No underline */
+
+            color: #007BFF;
+            /* Bootstrap blue color */
+        }
+
+        a.back-link:hover {
+            text-decoration: underline;
+            /* Underline on hover */
+        }
+
+        a {
+            color: #e46826;
+            /* Orange color for other links */
+
+            font-size: 30px;
+            /* Large font size */
+
+            text-decoration: none;
+            /* No underline */
+
+            margin: 0 5px;
+            /* Horizontal margin */
+        }
+    </style>
 </head>
+
 <body>
-$END$
+<h1>Employee Tenure Report</h1>
+<!-- Main heading for the page -->
+
+<div th:each="entry : ${tenureGroups}">
+    <!-- Loop through each tenure group in the model -->
+
+    <h2 th:text="${entry.key}">Tenure Range</h2>
+    <!-- Display the tenure range key -->
+
+    <div class="count">
+        Number of Employees: <span th:text="${#lists.size(entry.value)}">0</span>
+    </div>
+    <!-- Display the count of employees in this tenure group -->
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th><th>Name</th><th>Position</th><th>Salary</th><th>Hire Date</th><th>Department</th><th>Active</th>
+        </tr>
+        </thead>
+        <!-- Table header with columns -->
+
+        <tbody>
+        <tr th:each="emp : ${entry.value}">
+            <!-- Loop through employees in this tenure group -->
+
+            <td th:text="${emp.id}">1</td>
+            <!-- Employee ID -->
+
+            <td th:text="${emp.name}">Name</td>
+            <!-- Employee Name -->
+
+            <td th:text="${emp.position}">Position</td>
+            <!-- Employee Position -->
+
+            <td th:text="${#numbers.formatDecimal(emp.salary, 0, 'COMMA', 2, 'POINT')}">$0.00</td>
+            <!-- Employee Salary formatted with 2 decimals -->
+
+            <td th:text="${emp.hireDate}">2023-01-01</td>
+            <!-- Employee Hire Date -->
+
+            <td th:text="${emp.department}">Department</td>
+            <!-- Employee Department -->
+
+            <td th:text="${emp.active} ? 'Yes' : 'No'">Yes</td>
+            <!-- Display 'Yes' if active is true, otherwise 'No' -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<p><a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Home</a></p>
+<!-- Link back to home page with left arrow icon -->
+
 </body>
 </html>
