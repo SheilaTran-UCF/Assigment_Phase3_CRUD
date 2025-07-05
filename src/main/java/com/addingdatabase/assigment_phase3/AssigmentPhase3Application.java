@@ -1,5 +1,5 @@
 // Package declaration: defines the package where this class resides
-package com.addingdatabase.assigment_phase4;
+package com.addingdatabase.assigment_phase3;
 
 // Import statement for Spring Boot's SpringApplication class, used to launch the application
 import org.springframework.boot.SpringApplication;
@@ -35,12 +35,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication  // Marks this class as a Spring Boot application, enabling auto-configuration and component scanning
-public class AssigmentPhase4Application {
+public class AssigmentPhase3Application {
 
     // Main method: the starting point of any Java application
     public static void main(String[] args) {
 
         // Launches the Spring Boot application by passing in this class and command-line arguments
-        SpringApplication.run(AssigmentPhase4Application.class, args);
+        SpringApplication.run(AssigmentPhase3Application.class, args);
     }
 }
