@@ -1,0 +1,57 @@
+<!-- Define the document as HTML5 -->
+<!DOCTYPE html>
+
+<!-- Declare the HTML element and register the Thymeleaf namespace -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Title of the page shown in the browser tab -->
+  <title>Error</title>
+
+  <!-- Internal CSS styles for the page -->
+  <style>
+    body {
+      font-family: Arial, sans-serif; /* Set a clean, readable font */
+      background: #ffecec; /* Light red background for error feel */
+      padding: 40px; /* Add space around content */
+      color: #a94442; /* Dark red text color for error messages */
+    }
+
+    h1 {
+      color: #a94442; /* Heading color to match the error theme */
+    }
+
+    .message {
+      margin-top: 20px; /* Add spacing above message */
+      font-size: 1.2rem; /* Slightly larger text size for visibility */
+    }
+
+    a {
+      display: inline-block; /* Make link behave like a block with spacing */
+      margin-top: 20px; /* Space above the link */
+      color: #333; /* Dark gray link text */
+      text-decoration: none; /* Remove underline */
+    }
+  </style>
+</head>
+<nav>
+  <a href="/">Home</a> |
+  <a href="/employees">Employee List</a> |
+  <a href="/add">Add Employee</a> |
+  <a href="/uploadForm">Batch Upload</a> |
+  <a href="/tenure">Tenure Report</a>
+</nav>
+<hr/>
+
+<body>
+<!-- Main heading displayed on error -->
+<h1>Something went wrong!</h1>
+
+<!-- Dynamic error message pulled from the controller using Thymeleaf -->
+<!-- If no message is available, "Unknown error occurred." is shown -->
+<div class="message" th:text="${message}">Unknown error occurred.</div>
+
+<!-- Link to return to the home page using Thymeleaf URL mapping -->
+<a th:href="@{/}">Back to Home</a>
+</body>
+</html>

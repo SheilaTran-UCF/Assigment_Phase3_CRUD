@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Batch Upload Employees</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label, input, button { display: block; margin: 10px 0; }
+        .message { margin-top: 20px; font-weight: bold; color: green; }
+        .error { color: red; }
+        a.back-link { margin-top: 20px; display: inline-block; }
+    </style>
+</head>
+<nav>
+    <a href="/">Home</a> |
+    <a href="/employees">Employee List</a> |
+    <a href="/add">Add Employee</a> |
+    <a href="/uploadForm">Batch Upload</a> |
+    <a href="/tenure">Tenure Report</a>
+</nav>
+<hr/>
+
+<body>
+
+<h2>Batch Upload Employee Records</h2>
+
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <label for="file">Select employee data file (txt or csv):</label>
+    <input type="file" id="file" name="file" accept=".txt,.csv" required />
+    <button type="submit">Upload File</button>
+</form>
+
+<div th:if="${message}" th:text="${message}" class="message"></div>
+
+<p><a class="back-link" th:href="@{/employees}">&#8592; Back to Employee List</a></p>
+
+</body>
+</html>

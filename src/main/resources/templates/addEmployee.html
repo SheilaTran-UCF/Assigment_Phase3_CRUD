@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Declare this document as HTML5 -->
+<html xmlns:th="http://www.thymeleaf.org">
 
 <!--
  *   Professor: Ashley Evans
@@ -18,97 +18,90 @@
   A back link allows users to return to the employee list.
 -->
 
-
-<html xmlns:th="http://www.thymeleaf.org">
-<!-- Start of HTML, declare Thymeleaf namespace for template engine -->
-
 <head>
+  <!-- Page title shown in the browser tab -->
   <title>Add New Employee</title>
-  <!-- Page title shown in browser tab -->
 
+  <!-- Link to external CSS file (Thymeleaf syntax for path resolution) -->
   <link rel="stylesheet" th:href="@{/style.css}">
-  <!-- Link to external stylesheet using Thymeleaf to resolve path -->
 
+  <!-- Font Awesome stylesheet for using icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Link to Font Awesome CSS for icon fonts -->
 
+  <!-- Inline CSS styles for the form page -->
   <style>
-    /* Internal CSS styling starts */
-
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f9fc;
-      margin: 40px;
-      color: #333;
+      font-family: Arial, sans-serif; /* Set font */
+      background: #f7f9fc; /* Light background color */
+      margin: 40px; /* Margin around the page */
+      color: #333; /* Default text color */
     }
-    /* Styles for page body: font, background color, margin, text color */
 
     h2 {
-      color: #ec8c1d;
-      margin-bottom: 25px;
+      color: #ec8c1d; /* Heading color */
+      margin-bottom: 25px; /* Space below the heading */
     }
-    /* Styles for heading: color and bottom margin */
 
     form {
-      background: #fff;
-      padding: 25px 30px;
-      border-radius: 8px;
-      max-width: 500px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      background: #fff; /* White form background */
+      padding: 25px 30px; /* Inner padding */
+      border-radius: 8px; /* Rounded corners */
+      max-width: 500px; /* Limit form width */
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     }
-    /* Form container styling: white background, padding, rounded corners, max width, subtle shadow */
 
     label {
-      display: block;
-      font-weight: 600;
+      display: block; /* Make label on its own line */
+      font-weight: 600; /* Bold text */
       margin-bottom: 8px;
       margin-top: 15px;
-      color: #3771ed;
+      color: #3771ed; /* Blue label text */
     }
-    /* Label styling: block display, bold font, spacing, and blue color */
 
     input[type="text"],
     input[type="number"],
     input[type="date"],
     select {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      width: 100%; /* Fill container */
+      padding: 10px 12px; /* Padding inside input */
+      font-size: 1rem; /* Standard text size */
+      border: 1px solid #ccc; /* Light gray border */
+      border-radius: 5px; /* Rounded corners */
       box-sizing: border-box;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease; /* Smooth border on focus */
     }
-    /* Styling for text, number, date inputs and select: full width, padding, font size, border, rounded corners, smooth border color transition */
 
     input[type="text"]:focus,
     input[type="number"]:focus,
     input[type="date"]:focus,
     select:focus {
       outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0,123,255,0.4);
+      border-color: #007bff; /* Blue border when focused */
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.4); /* Light glow */
     }
-    /* Focus state styling for inputs and selects: remove outline, change border color, add subtle blue shadow */
 
     .checkbox-label {
       display: flex;
-      align-items: center;
+      align-items: center; /* Align checkbox and label */
       margin-top: 15px;
       font-weight: 600;
       cursor: pointer;
     }
-    /* Styling for checkbox label container: flex layout, vertical alignment, spacing, bold font, pointer cursor */
 
     .checkbox-label input[type="checkbox"] {
       margin-right: 10px;
-      transform: scale(1.2);
+      transform: scale(1.2); /* Slightly enlarge checkbox */
     }
-    /* Checkbox input inside label: spacing right, slightly larger scale */
+
+    .error {
+      color: red; /* Red text for error */
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
 
     button {
       margin-top: 25px;
-      background-color: #ecad64;
+      background-color: #ecad64; /* Orange button */
       color: white;
       font-weight: 600;
       padding: 12px 20px;
@@ -119,12 +112,10 @@
       transition: background-color 0.3s ease;
       width: 100%;
     }
-    /* Submit button styling: margin, background color, white text, bold font, padding, no border, rounded corners, pointer cursor, font size, smooth background color transition, full width */
 
     button:hover {
-      background-color: #dd933b;
+      background-color: #dd933b; /* Darker on hover */
     }
-    /* Hover effect for button: darker background color */
 
     .back-link {
       display: inline-block;
@@ -133,68 +124,68 @@
       text-decoration: none;
       font-size: 0.9rem;
     }
-    /* Styling for back link: inline block, top margin, gray text, no underline, smaller font */
 
     .back-link:hover {
-      text-decoration: underline;
+      text-decoration: underline; /* Underline link on hover */
     }
-    /* Hover effect for back link: underline text */
   </style>
 </head>
 
+<nav>
+  <a href="/">Home</a> |
+  <a href="/employees">Employee List</a> |
+  <a href="/add">Add Employee</a> |
+  <a href="/uploadForm">Batch Upload</a> |
+  <a href="/tenure">Tenure Report</a>
+</nav>
+<hr/>
+
 <body>
-<h2>Add New Employee</h2>
 <!-- Page heading -->
+<h2>Add New Employee</h2>
 
+<!-- Form to submit new employee data -->
+<!-- 'th:action' defines the POST URL -->
+<!-- 'th:object' binds form fields to a Java model object named 'employee' -->
 <form th:action="@{/add}" th:object="${employee}" method="post">
-  <!-- Form start: posts data to /add endpoint, bound to 'employee' model object -->
 
+  <!-- Name field -->
   <label for="name">Name:</label>
-  <!-- Label for name input -->
+  <input type="text" id="name" th:field="*{name}" placeholder="Enter full name">
+  <!-- Display error if name is invalid -->
+  <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
 
-  <input type="text" id="name" th:field="*{name}" placeholder="Enter full name" required>
-  <!-- Text input for employee name, required -->
-
+  <!-- Position field -->
   <label for="position">Position:</label>
-  <!-- Label for position input -->
+  <input type="text" id="position" th:field="*{position}" placeholder="Enter position">
+  <div class="error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">Position Error</div>
 
-  <input type="text" id="position" th:field="*{position}" placeholder="Enter position" required>
-  <!-- Text input for position, required -->
-
+  <!-- Salary field -->
   <label for="salary">Salary:</label>
-  <!-- Label for salary input -->
+  <input type="number" id="salary" th:field="*{salary}" step="0.01" min="0" placeholder="Enter salary">
+  <div class="error" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">Salary Error</div>
 
-  <input type="number" id="salary" th:field="*{salary}" step="0.01" min="0" placeholder="Enter salary" required>
-  <!-- Number input for salary with decimal step, minimum 0, required -->
-
+  <!-- Hire Date field -->
   <label for="hireDate">Hire Date:</label>
-  <!-- Label for hire date input -->
+  <input type="date" id="hireDate" th:field="*{hireDate}">
+  <div class="error" th:if="${#fields.hasErrors('hireDate')}" th:errors="*{hireDate}">Date Error</div>
 
-  <input type="date" id="hireDate" th:field="*{hireDate}" required>
-  <!-- Date input for hire date, required -->
-
+  <!-- Department field -->
   <label for="department">Department:</label>
-  <!-- Label for department input -->
+  <input type="text" id="department" th:field="*{department}" placeholder="Enter department">
+  <div class="error" th:if="${#fields.hasErrors('department')}" th:errors="*{department}">Department Error</div>
 
-  <input type="text" id="department" th:field="*{department}" placeholder="Enter department" required>
-  <!-- Text input for department, required -->
-
+  <!-- Checkbox to indicate if employee is active -->
   <label class="checkbox-label" for="active">
-    <!-- Label styled for checkbox with flex -->
-
     <input type="checkbox" id="active" th:field="*{active}">
-    <!-- Checkbox input for employee active status -->
-
     Active
-    <!-- Label text for checkbox -->
   </label>
 
+  <!-- Submit button -->
   <button type="submit">Add Employee</button>
-  <!-- Submit button to add employee -->
 </form>
 
-<p><a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to List</a></p>
-<!-- Link back to employee list with left arrow icon -->
+<!-- Link to go back to employee list -->
+<p><a class="back-link" th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to List</a></p>
 </body>
-
 </html>
